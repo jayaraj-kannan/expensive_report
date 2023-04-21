@@ -1,0 +1,54 @@
+.custable { font-size: 10px; }
+.custable tr { line-height: 0px; }
+
+.opacity-animate{
+    animation:opt-animation 0.60s;
+     -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes opt-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes opt-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes opt-animation {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes opt-animation {
+  0%   { opacity: 0;}
+  100% { opacity: 1;}
+}
+.btn-add{
+background-color:#424e68;
+}
+.btn-delete{background-color:red}
+.btn-reload{background-color:red}
+
+.btn-add:hover{
+background-color:#5f90be;
+color:white;
+}
+.btn-add,.btn-delete,.btn-reload{
+color:white;
+}
+
+.btn-delete:hover{
+background-color:#f65959;
+color:white;}
+.btn-reload:hover{
+background-color:#f65959;
+color:white;}
+#reload{
+  background-color: #00c763;
+  position: absolute;
+  right: 20px;
+}
+#reload:hover{
+background-color:#51cb8e;
+color:white;
+}

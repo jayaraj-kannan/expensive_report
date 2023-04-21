@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Persons Data</title>
+</head>
+<body>
+<form action="#" th:action="@{./add}" th:object="${person}"
+      method="POST">
+    <input type="text" th:field="*{name}" placeholder="Employee Name">
+    <input type="text" th:field="*{emailid}" placeholder="Employee Email">
+    <input type="text" th:field="*{mobileno}" placeholder="Employee Mobile">
+
+    <button type="submit">Save Person</button>
+</form>
+<table>
+    <tr>
+        <th>Person ID</th>
+        <th>Person Name</th>
+        <th>Person EmailID</th>
+        <th>Person MobileNo</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="person:${persons}">
+        <td th:text="${person.id}">"${person.id}"</td>
+        <td th:text="${person.name}">"${person.name}"</td>
+        <td th:text="${person.emailid}">"${person.emailid}"</td>
+        <td th:text="${person.mobileno}">"${person.mobileno}"</td>
+        <td><a th:href="@{./delete/{id}(id=${person.id})}">delete</a></td>
+    </tr>
+</table>
+</body>
+</html>

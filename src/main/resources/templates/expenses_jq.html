@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <head th:replace="~{fragments :: head}">
+        <link rel="stylesheet" type="text/css"
+              href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    </head>
+</head>
+
+<body>
+
+<div class="theme-loader" th:replace="~{fragments :: loader}"></div>
+
+<div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+        <nav class="navbar header-navbar pcoded-header" th:replace="~{fragments :: navbar}"></nav>
+        <div id="sidebar" class="users p-chat-user showChat" th:replace="~{fragments :: sidebar}"></div>
+        <div class="pcoded-main-container">
+            <div class="pcoded-wrapper">
+                <nav class="pcoded-navbar" th:replace="~{fragments :: menubar}"></nav>
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-xl-9 col-md-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>HTML (DOM) Sourced Data</h5>
+                                                    <span></span>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div>
+                                                        <div class="m-t-15" style="margin-bottom: 15px;">
+                                                            <button type="button" title="Add Expense"
+                                                                    data-toggle="modal"
+                                                                    data-target="#register"
+                                                                    class="btn btn-facebook btn-mini waves-effect waves-light">
+                                                                <span>Add Expense</span>
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="dt-responsive table-responsive">
+
+                                                        <div class="dt-responsive table-responsive">
+                                                            <table id="expense"
+                                                                   class="display" style="width:100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>id</th>
+                                                                    <th>Date</th>
+                                                                    <th>Description</th>
+                                                                    <th>Source</th>
+                                                                    <th>Category</th>
+                                                                    <th>Amount</th>
+
+                                                                </tr>
+                                                                </thead>
+
+                                                                <tfoot>
+                                                                <tr>
+                                                                    <th>id</th>
+                                                                    <th>Date</th>
+                                                                    <th>Description</th>
+                                                                    <th>Source</th>
+                                                                    <th>Category</th>
+                                                                    <th>Amount</th>
+                                                                </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-md-12">
+                                            <div class="card user-card2">
+                                                <div class="card-block text-center">
+                                                    <h6 class="m-b-15">Project Risk</h6>
+                                                    <div class="risk-rate">
+                                                        <span><b>5</b></span>
+                                                    </div>
+                                                    <h6 class="m-b-10 m-t-10">Balanced</h6>
+                                                    <a href="#!" class="text-c-yellow b-b-warning">Change Your
+                                                        Risk</a>
+                                                    <div class="row justify-content-center m-t-10 b-t-default m-l-0 m-r-0">
+                                                        <div class="col m-t-15 b-r-default">
+                                                            <h6 class="text-muted">Nr</h6>
+                                                            <h6>AWS 2455</h6>
+                                                        </div>
+                                                        <div class="col m-t-15">
+                                                            <h6 class="text-muted">Created</h6>
+                                                            <h6>30th Sep</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-warning btn-block p-t-15 p-b-15">Download
+                                                    Overall Report
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+<!--    <div class="modal fade" id="register" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">-->
+<!--        <div class="modal-dialog d-flex justify-content-center">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title">Add User</h5>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                        <span aria-hidden="true">×</span>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <form th:action="@{/exp/addexpense}" th:object="${expense}" method="post">-->
+<!--                        &lt;!&ndash; Email input &ndash;&gt;-->
+<!--                        <div class="form-outline">-->
+<!--                            <select class="form-control" th:field="*{expensiveSource}" required>-->
+<!--                                <option value="">Select</option>-->
+<!--                                <option th:each="source : ${e_source}"-->
+<!--                                        th:value="${source}"-->
+<!--                                        th:text="${source}"></option>-->
+<!--                            </select>-->
+<!--                            <label class="form-label">Source of Expense</label>-->
+
+<!--                            <input type="text" th:field="*{amount}" class="form-control"/>-->
+<!--                            <label class="form-label">Amount</label>-->
+<!--                            <textarea th:field="*{description}" class="form-control"/>-->
+<!--                            <label class="form-label">Description</label>-->
+<!--                            <select class="form-control" th:field="*{expensiveCategory}" required>-->
+<!--                                <option value="">Select</option>-->
+<!--                                <option th:each="category : ${e_category}"-->
+<!--                                        th:value="${category}"-->
+<!--                                        th:text="${category}"></option>-->
+<!--                            </select>-->
+<!--                            <label class="form-label">Source of Expense</label>-->
+
+<!--                        </div>-->
+
+<!--                        <button type="submit" class="btn btn-primary btn-block">Add Expense</button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+</div>
+
+
+<script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/bower_components/popper.js/dist/umd/popper.min.js"></script>
+<script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="/bower_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+<script type="text/javascript" src="/bower_components/modernizr/modernizr.js"></script>
+<script type="text/javascript" src="/bower_components/modernizr/feature-detects/css-scrollbars.js"></script>
+
+
+<script src="/assets/pages/data-table/js/jszip.min.js"></script>
+<script src="/assets/pages/data-table/js/pdfmake.min.js"></script>
+<script src="/assets/pages/data-table/js/vfs_fonts.js"></script>
+
+<script type="text/javascript" src="/bower_components/i18next/i18next.min.js"></script>
+<script type="text/javascript" src="/bower_components/i18next-xhr-backend/i18nextXHRBackend.min.js"></script>
+<script type="text/javascript"
+        src="/bower_components/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.min.js"></script>
+<script type="text/javascript" src="/bower_components/jquery-i18next/jquery-i18next.min.js"></script>
+
+<script th:src="@{/assets/pages/data-table/extensions/select/js/select-custom.js}"></script>
+<script src="/assets/js/pcoded.min.js"></script>
+<script src="/assets/js/vartical-layout.min.js"></script>
+<script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="/assets/js/script.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+
+</html>
