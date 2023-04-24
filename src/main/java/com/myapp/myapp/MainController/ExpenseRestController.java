@@ -1,6 +1,8 @@
 package com.myapp.myapp.MainController;
 
 import com.myapp.myapp.Model.Expensive;
+import com.myapp.myapp.Model.ExpensiveCategory;
+import com.myapp.myapp.Model.ExpensiveSource;
 import com.myapp.myapp.Model.User;
 import com.myapp.myapp.Service.ExpensiveService;
 import com.myapp.myapp.Service.UserService;
@@ -11,9 +13,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,8 +51,39 @@ public class ExpenseRestController {
     public ResponseEntity<Void> createExpense(@RequestBody Expensive expense, Authentication authentication){
         User user=userService.getCurrentUsername(authentication);
         expense.setUser(user);
-        expense.setDate(new SimpleDateFormat("ddmmyyyy hh:mm s").format(new Date()));
+        expense.setDate(new Date());
         expensiveService.createExpense(expense);
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+    @GetMapping("/getcate_total/{id}")
+    public ResponseEntity<Map> getExpenseCategoryTotal(@PathVariable Long id){
+        List<Expensive> expenses =expensiveService.findByUser(id);
+        Map<ExpensiveCategory, Double> categoryTotals = expenses.stream()
+                .collect(Collectors.groupingBy(Expensive::getExpensiveCategory, Collectors.summingDouble(e -> Double.parseDouble(e.getAmount()))));
+        return new ResponseEntity<Map>(categoryTotals,HttpStatus.OK);
+    }
+    @GetMapping("/getsource_total/{id}")
+    public ResponseEntity<Map> getExpenseSourceTotal(@PathVariable Long id){
+        List<Expensive> expenses =expensiveService.findByUser(id);
+        Map<ExpensiveSource, Double> sourceTotals = expenses.stream()
+                .collect(Collectors.groupingBy(Expensive::getExpensiveSource, Collectors.summingDouble(e -> Double.parseDouble(e.getAmount()))));
+        return new ResponseEntity<Map>(sourceTotals,HttpStatus.OK);
+    }
+    @GetMapping("/ranges/{id}/{range}")
+    public ResponseEntity<Map> getExpensesAsRange(@PathVariable Long id){
+        List<Expensive> expenses =expensiveService.findByUser(id);
+        Map<ExpensiveSource, Double> sourceTotals = expenses.stream()
+                .collect(Collectors.groupingBy(Expensive::getExpensiveSource, Collectors.summingDouble(e -> Double.parseDouble(e.getAmount()))));
+        return new ResponseEntity<Map>(sourceTotals,HttpStatus.OK);
+
+    }
+    @GetMapping("/total/{id}")
+    public ResponseEntity<Double> getExpensesTotal(@PathVariable Long id){
+        int year= LocalDateTime.now().getYear();
+        List<Expensive> expenses =expensiveService.findByYear(id,year);
+         return new ResponseEntity<Double>
+                 (expenses.stream().mapToDouble(e-> Double.parseDouble(e.getAmount())).sum()
+                         ,HttpStatus.OK);
+
     }
 }

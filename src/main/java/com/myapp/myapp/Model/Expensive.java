@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name="EXPENSIVE")
 public class Expensive {
@@ -22,7 +24,8 @@ public class Expensive {
     @Enumerated(EnumType.STRING)
     private ExpensiveSource expensiveSource;
     @Column(name = "DATE")
-    private String date;
+    @Temporal(TemporalType.DATE)
+    private Date date;
     @Column(name = "EXPENSIVE_DES")
     private String description;
     @Column(name = "EXPENSIVE_AMOUNT")
@@ -49,7 +52,7 @@ public class Expensive {
 
 
 
-    public Expensive(Long id, ExpensiveSource expensiveSource, String date, String description, String amount, ExpensiveCategory expensiveCategory) {
+    public Expensive(Long id, ExpensiveSource expensiveSource, Date date, String description, String amount, ExpensiveCategory expensiveCategory) {
         this.id = id;
         this.expensiveSource = expensiveSource;
         this.date = date;
@@ -74,11 +77,11 @@ public class Expensive {
         this.expensiveSource = expensiveSource;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

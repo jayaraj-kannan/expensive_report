@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
@@ -26,6 +27,7 @@ public class ExpensiveController {
     @Autowired
     private final UserService userService;
     private static final String TITLE = "User Dashboard";
+    private static final String DATE_FORMAT="ddmmyyyy hh:mm s";
     public ExpensiveController(ExpensiveService expensiveService, UserService userService) {
         this.expensiveService = expensiveService;
         this.userService = userService;
@@ -35,7 +37,7 @@ public class ExpensiveController {
         User user=userService.getCurrentUsername(authentication);
         System.out.println("userid"+user.getId());
         expense.setUser(user);
-        expense.setDate(new SimpleDateFormat("ddmmyyyy hh:mm s").format(new Date()));
+        expense.setDate(new Date());
         expensiveService.createExpense(expense);
         return "redirect:/exp/dashboard";
     }

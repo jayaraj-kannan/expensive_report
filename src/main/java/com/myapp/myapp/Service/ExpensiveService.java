@@ -47,4 +47,7 @@ public class ExpensiveService {
         }
 
     }
+    public List<Expensive> findByYear(Long id,int year){
+        return expensiveRepository.findByIdAndDateYear(id,year);
+    }
 }
