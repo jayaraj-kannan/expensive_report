@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -25,7 +26,7 @@ public class Expensive {
     private ExpensiveSource expensiveSource;
     @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private LocalDate date;
     @Column(name = "EXPENSIVE_DES")
     private String description;
     @Column(name = "EXPENSIVE_AMOUNT")
@@ -52,7 +53,7 @@ public class Expensive {
 
 
 
-    public Expensive(Long id, ExpensiveSource expensiveSource, Date date, String description, String amount, ExpensiveCategory expensiveCategory) {
+    public Expensive(Long id, ExpensiveSource expensiveSource, LocalDate date, String description, String amount, ExpensiveCategory expensiveCategory) {
         this.id = id;
         this.expensiveSource = expensiveSource;
         this.date = date;
@@ -77,11 +78,11 @@ public class Expensive {
         this.expensiveSource = expensiveSource;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -48,6 +49,8 @@ public class ExpensiveService {
 
     }
     public List<Expensive> findByYear(Long id,int year){
-        return expensiveRepository.findByIdAndDateYear(id,year);
+        LocalDate start = LocalDate.of(year, 1, 1);
+        LocalDate end = LocalDate.of(year, 12, 31);
+        return expensiveRepository.findByUserIdAndDateBetween(id,start, end);
     }
 }

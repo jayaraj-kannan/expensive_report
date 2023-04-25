@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +52,7 @@ public class ExpenseRestController {
     public ResponseEntity<Void> createExpense(@RequestBody Expensive expense, Authentication authentication){
         User user=userService.getCurrentUsername(authentication);
         expense.setUser(user);
-        expense.setDate(new Date());
+        expense.setDate(LocalDate.now());
         expensiveService.createExpense(expense);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
@@ -79,7 +80,7 @@ public class ExpenseRestController {
     }
     @GetMapping("/total/{id}")
     public ResponseEntity<Double> getExpensesTotal(@PathVariable Long id){
-        int year= LocalDateTime.now().getYear();
+        int year= LocalDate.now().getYear();
         List<Expensive> expenses =expensiveService.findByYear(id,year);
          return new ResponseEntity<Double>
                  (expenses.stream().mapToDouble(e-> Double.parseDouble(e.getAmount())).sum()

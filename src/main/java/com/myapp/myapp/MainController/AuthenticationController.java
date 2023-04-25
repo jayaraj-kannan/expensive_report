@@ -23,7 +23,9 @@ public class AuthenticationController {
     UserService userService;
 
     @GetMapping("/login")
-    public String getLogin() {
+    public String getLogin(Model model) {
+
+        model.addAttribute("title","Login");
         return "login";
     }
 
@@ -40,6 +42,7 @@ public class AuthenticationController {
     @GetMapping("/signup")
     public String register(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("title","SignUp");
         return "signup";
     }
 
