@@ -53,4 +53,10 @@ public class ExpensiveService {
         LocalDate end = LocalDate.of(year, 12, 31);
         return expensiveRepository.findByUserIdAndDateBetween(id,start, end);
     }
+    public List<Integer> findDistinctYears(){
+        return expensiveRepository.findDistinctYears();
+    }
+    public List<Expensive> findBySource(Long id,String source){
+        return expensiveRepository.findByUserIdAndExpensiveSource(id,source);
+    }
 }
