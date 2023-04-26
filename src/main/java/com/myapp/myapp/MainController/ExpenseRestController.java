@@ -70,7 +70,7 @@ public class ExpenseRestController {
                 .collect(Collectors.groupingBy(Expensive::getExpensiveSource, Collectors.summingDouble(e -> Double.parseDouble(e.getAmount()))));
         return new ResponseEntity<Map>(sourceTotals,HttpStatus.OK);
     }
-    @GetMapping("/ranges/{id}/{range}")
+    @GetMapping("/getsource_/{id}")
     public ResponseEntity<Map> getExpensesAsRange(@PathVariable Long id){
         List<Expensive> expenses =expensiveService.findByUser(id);
         Map<ExpensiveSource, Double> sourceTotals = expenses.stream()
@@ -78,13 +78,21 @@ public class ExpenseRestController {
         return new ResponseEntity<Map>(sourceTotals,HttpStatus.OK);
 
     }
+    @GetMapping("/getbyyear/{id}/{year}")
+    public ResponseEntity<List<Expensive>> getExpensesByYear(@PathVariable Long id, int year){
+        return new ResponseEntity<List<Expensive>>(expensiveService.findByYear(id,year),HttpStatus.OK);
+    }
     @GetMapping("/total/{id}")
     public ResponseEntity<Double> getExpensesTotal(@PathVariable Long id){
         int year= LocalDate.now().getYear();
-        List<Expensive> expenses =expensiveService.findByYear(id,year);
+        List<Expensive> expenses =expensiveService.findByUser(id);
          return new ResponseEntity<Double>
                  (expenses.stream().mapToDouble(e-> Double.parseDouble(e.getAmount())).sum()
                          ,HttpStatus.OK);
 
+    }
+    @GetMapping("/dist_years")
+    public ResponseEntity<List<Integer>> getDistinctYears(){
+        return new ResponseEntity<List<Integer>>(expensiveService.findDistinctYears(),HttpStatus.OK);
     }
 }
