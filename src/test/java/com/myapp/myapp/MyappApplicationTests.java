@@ -12,17 +12,13 @@ import java.util.List;
 
 @SpringBootTest
 class MyappApplicationTests {
-	@Autowired
-	private final ExpensiveService expensiveService;
-
-	MyappApplicationTests(ExpensiveService expensiveService) {
-		this.expensiveService = expensiveService;
-	}
 
 
 	@Test
 	void contextLoads() {
+		System.out.println("inside");
 	}
+
 
 
 }
