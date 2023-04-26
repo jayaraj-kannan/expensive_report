@@ -14,5 +14,9 @@ public interface ExpensiveRepository extends JpaRepository<Expensive,String> {
     List<Expensive> findByUserId(Long id);
     void deleteById(Long id);
     List<Expensive> findByUserIdAndDateBetween(Long id,LocalDate start, LocalDate end);
+    @Query("SELECT DISTINCT DATE_PART('year', CAST(e.date AS DATE)) AS years FROM Expensive e WHERE e.date IS NOT NULL")
+    List<Integer> findDistinctYears();
+
+    List<Expensive> findByUserIdAndExpensiveSource(Long id,String source);
 
 }
