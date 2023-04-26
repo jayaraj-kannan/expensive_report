@@ -47,6 +47,7 @@ public class ExpensiveController {
         User user= userService.getCurrentUsername(authentication);
         model.addAttribute("current", user);
         model.addAttribute("title",TITLE);
+        model.addAttribute("years",expensiveService.findDistinctYears());
         model.addAttribute("expense", new Expensive());
         model.addAttribute("expenses",expensiveService.findByUser(user.getId()));
         model.addAttribute("e_category", Arrays.asList(ExpensiveCategory.values())
