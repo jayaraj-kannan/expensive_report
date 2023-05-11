@@ -7,8 +7,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ExpensiveService {
@@ -51,12 +53,21 @@ public class ExpensiveService {
     public List<Expensive> findByYear(Long id,int year){
         LocalDate start = LocalDate.of(year, 1, 1);
         LocalDate end = LocalDate.of(year, 12, 31);
-        return expensiveRepository.findByUserIdAndDateBetween(id,start, end);
+        return expensiveRepository.findByUserIdAndDateBetweenOrderByDateDesc(id,start, end);
     }
-    public List<Integer> findDistinctYears(){
-        return expensiveRepository.findDistinctYears();
+    public List<Integer> findDistinctYears(Long id){
+        return expensiveRepository.findDistinctYearByUserId(id);
+    }
+    public BigDecimal getTotalByYear(Long id ,int year){
+        LocalDate start = LocalDate.of(year, 1, 1);
+        LocalDate end = LocalDate.of(year, 12, 31);
+        return expensiveRepository.findTotalExpenseByUserIdAndDateBetween(id,start,end);
+    }
+    public BigDecimal getTotalByAll(Long id){
+        return expensiveRepository.findTotalExpenseByUserId(id);
     }
     public List<Expensive> findBySource(Long id,String source){
         return expensiveRepository.findByUserIdAndExpensiveSource(id,source);
     }
+
 }

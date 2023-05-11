@@ -1,9 +1,6 @@
 package com.myapp.myapp.MainController;
 
-import com.myapp.myapp.Model.Expensive;
-import com.myapp.myapp.Model.ExpensiveCategory;
-import com.myapp.myapp.Model.ExpensiveSource;
-import com.myapp.myapp.Model.User;
+import com.myapp.myapp.Model.*;
 import com.myapp.myapp.Service.ExpensiveService;
 import com.myapp.myapp.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
+import java.time.*;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.logging.SimpleFormatter;
 import java.util.stream.Collectors;
 
 @Controller
@@ -28,7 +22,6 @@ public class ExpensiveController {
     @Autowired
     private final UserService userService;
     private static final String TITLE = "User Dashboard";
-    private static final String DATE_FORMAT="ddmmyyyy hh:mm s";
     public ExpensiveController(ExpensiveService expensiveService, UserService userService) {
         this.expensiveService = expensiveService;
         this.userService = userService;
@@ -47,13 +40,14 @@ public class ExpensiveController {
         User user= userService.getCurrentUsername(authentication);
         model.addAttribute("current", user);
         model.addAttribute("title",TITLE);
-        model.addAttribute("years",expensiveService.findDistinctYears());
         model.addAttribute("expense", new Expensive());
         model.addAttribute("expenses",expensiveService.findByUser(user.getId()));
         model.addAttribute("e_category", Arrays.asList(ExpensiveCategory.values())
-                .stream().map(i -> i.toString().toUpperCase()).collect(Collectors.toList()));
+                .stream().map(i -> i.toString()).collect(Collectors.toList()));
         model.addAttribute("e_source", Arrays.asList(ExpensiveSource.values())
-                .stream().map(i -> i.toString().toUpperCase()).collect(Collectors.toList()));
+                .stream().map(i -> i.toString()).collect(Collectors.toList()));
+        model.addAttribute("e_type", Arrays.asList(ExpensiveType.values())
+                .stream().map(i -> i.toString()).collect(Collectors.toList()));
         return "expenses";
     }
     @GetMapping("/getall")

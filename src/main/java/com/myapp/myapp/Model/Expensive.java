@@ -34,6 +34,10 @@ public class Expensive {
     @Column(name="EXPENSIVE_CATEGORY")
     @Enumerated(EnumType.STRING)
     private ExpensiveCategory expensiveCategory;
+
+    @Column(name="EXPENSIVE_TYPE")
+    @Enumerated(EnumType.STRING)
+    private ExpensiveType expensiveType;
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name ="user_id")
@@ -51,16 +55,6 @@ public class Expensive {
 
     }
 
-
-
-    public Expensive(Long id, ExpensiveSource expensiveSource, LocalDate date, String description, String amount, ExpensiveCategory expensiveCategory) {
-        this.id = id;
-        this.expensiveSource = expensiveSource;
-        this.date = date;
-        this.description = description;
-        this.amount = amount;
-        this.expensiveCategory = expensiveCategory;
-    }
 
     public Long getId() {
         return id;
@@ -108,5 +102,13 @@ public class Expensive {
 
     public void setExpensiveCategory(ExpensiveCategory expensiveCategory) {
         this.expensiveCategory = expensiveCategory;
+    }
+
+    public ExpensiveType getExpensiveType() {
+        return expensiveType;
+    }
+
+    public void setExpensiveType(ExpensiveType expensiveType) {
+        this.expensiveType = expensiveType;
     }
 }

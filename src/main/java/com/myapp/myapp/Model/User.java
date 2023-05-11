@@ -77,6 +77,11 @@ public class User implements UserDetails {
     @JoinColumn(name ="user_id")
     private List<Expensive> expensives;
 
+    @JsonManagedReference
+    @OneToMany
+    @JoinColumn(name ="user_id")
+    private List<MainBalance> mainBalance;
+
     @JsonIgnore
     public List<Expensive> getExpensives() {
         return expensives;

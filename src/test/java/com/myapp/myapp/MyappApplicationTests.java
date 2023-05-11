@@ -16,7 +16,7 @@ class MyappApplicationTests {
 
 	@Test
 	void contextLoads() {
-		System.out.println("inside");
+		
 	}
 
 

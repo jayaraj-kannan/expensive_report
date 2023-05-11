@@ -9,27 +9,33 @@ import java.time.LocalDateTime;
 @Entity
 @Table
 public class MainBalance {
+    @SequenceGenerator(
+            name = "balance_sequence",
+            sequenceName = "balance_sequence",
+            allocationSize = 1
+    )
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "balance_sequence"
+    )
     private Long id;
     @Column
-    private BigDecimal total;
+    private BigDecimal total = new BigDecimal(0);
     @Column
     private LocalDateTime createdAt;
     @Column
     private LocalDateTime updatedAt;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    public Long getId() {
-        return id;
+    public MainBalance() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     public BigDecimal getTotal() {
         return total;
